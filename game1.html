@@ -1,0 +1,457 @@
+<html>
+    <!--
+     <style>
+         body{
+
+              margin: 0px;
+              padding: 0px;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              align-items: center;
+
+
+
+
+
+         }
+       canvas{
+           box-shadow: black 20px 10px 40px;
+
+
+
+
+       }
+
+
+    </style>-->
+    
+  
+<canvas id="my canvas" width="500" height="700"  style="background-color: gray"></canvas>
+    <script>
+    
+    var canvas= document.getElementById('my canvas');
+        
+        var ctx= canvas.getContext('2d');
+        
+        
+        
+        function drawtext(){
+            
+            ctx.font="50px georgia";
+            ctx.fillStyle="gold";
+            ctx.fillText("dariveing car 2d",80,300)
+            
+            
+             ctx.font="20px georgia";
+            ctx.fillStyle="forestgreen";
+            ctx.fillText("Start",220,430)
+            
+        }
+        
+  
+        function scorce(){
+            ctx.font="20px vardana "
+            ctx.fillStyle ="black";
+            ctx.fillText("score",380,40);
+            ctx.fillStyle="red";
+            ctx.fillText(count,430,40);
+            
+            
+            
+        }
+        
+        var count=0;
+        var button_x_position= 200;
+         var button_y_position= 400;
+         var button_width=90;
+             var button_height=50;
+        
+        function lines(){
+        
+        
+        
+        ctx.beginPath()
+        ctx.moveTo(40,0)
+        ctx.lineTo(40,700)
+        ctx.closePath();
+            
+            
+            ctx.lineWidth="100"
+            ctx.strokeStyle='green'
+            ctx.stroke();
+            
+             ctx.beginPath()
+        ctx.moveTo(200,0)
+        ctx.lineTo(200,700)
+        ctx.closePath();
+            
+            
+            ctx.lineWidth="5"
+            ctx.strokeStyle='navy'
+            ctx.stroke();
+            
+           ctx.beginPath()
+        ctx.moveTo(300,0)
+        ctx.lineTo(300,700)
+        ctx.closePath();
+            
+            
+            ctx.lineWidth="5"
+            ctx.strokeStyle='navy'
+            ctx.stroke();  
+            
+             ctx.beginPath()
+        ctx.moveTo(450,0)
+        ctx.lineTo(450,700)
+        ctx.closePath();
+            
+            
+            ctx.lineWidth="86"
+            ctx.strokeStyle='green'
+            ctx.stroke();
+        
+        }
+        
+        
+        
+        
+        var g_flamerate= 30;
+        var timeinterval =1000/g_flamerate;
+        
+        
+        var g_xposition_1st_object=100;
+        
+        var g_yposition_1st_object=0;
+        var g_xposition_2nd_object=210;
+        
+        var g_yposition_2nd_object=0;
+        var g_xposition_3rd_object=310;
+        
+        var g_yposition_3rd_object=0;
+        
+        
+        var flamerate=0;
+        var sec =0;
+         var characterimg = new Image();
+          characterimg.src="city-car-png.webp";
+          var car1img = new Image();
+          car1img.src="images.png";
+          var car2img = new Image();
+          car2img.src="car2.png";
+          var car3img = new Image();
+          car3img.src="car3.png";
+        
+        
+           var g_xposition_chaeacter=125;
+        
+        var g_yposition_chaeacter=600;
+        
+        var _1st_object_length=75;
+        var _2nd_object_length=75;
+        var _3rd_object_length=75;
+        
+        var character_length= 50;
+        var character_speed= 100;
+        
+           var _1st_object_speed= 5;
+           var _2nd_object_speed= 7;
+              var _3rd_object_speed= 9;
+        
+        function chaeacter(){
+            ctx.fillStyle="pink"
+            ctx.drawImage(characterimg,g_xposition_chaeacter,g_yposition_chaeacter,character_length,character_length);
+           // ctx.fillRect(g_xposition_chaeacter,g_yposition_chaeacter,character_length,character_length)
+            
+        }
+        
+        function _1st_object(){
+            
+          //  ctx.fillStyle="red"
+            
+            ctx.drawImage(car1img,g_xposition_1st_object,g_yposition_1st_object,_1st_object_length,_1st_object_length)
+            
+            
+        }
+        function _2nd_object(){
+            
+            //ctx.fillStyle="yellow"
+            
+            ctx.drawImage(car2img,g_xposition_2nd_object,g_yposition_2nd_object,_2nd_object_length,_2nd_object_length)
+            
+            
+        }
+        function _3rd_object(){
+            
+        //    ctx.fillStyle="aqua"
+            
+            ctx.drawImage(car3img,g_xposition_3rd_object,g_yposition_3rd_object,_3rd_object_length,_3rd_object_length)
+            
+            
+        }
+        
+        function clearcanvas()
+        {
+            ctx.clearRect(0,0,canvas.width,canvas.height)
+        }
+            button();
+        //game loop
+      /*  function gameloop(){
+            
+            flamerate++;
+            if(flamerate%g_flamerate ==0)
+            {
+                sec++;
+            }
+            
+            //console.log(sec);
+     
+               
+          collision(); 
+         return_element();
+        
+            clearcanvas();
+           _1st_object();
+            _2nd_object();
+            _3rd_object();
+            
+            lines();
+            chaeacter();
+             scorce();
+        
+            
+        }*/
+        function charactermove()
+        {
+            if(flag_leftmove == 1
+              )
+                {
+                    g_xposition_chaeacter -=character_speed;
+                }
+            if(flag_rightmove == 1
+                )
+                {
+                    g_xposition_chaeacter +=character_speed;
+                }
+            if(g_xposition_chaeacter < 125)
+                {
+                    g_xposition_chaeacter =125
+                }
+            if(g_xposition_chaeacter >325)
+                {
+                    g_xposition_chaeacter =325
+                }
+            
+        }
+        
+        
+    
+        
+        
+        
+        
+        
+        
+        function collision()
+        {
+        
+            if(g_yposition_chaeacter < g_yposition_1st_object+_1st_object_length
+            && g_xposition_chaeacter < g_xposition_1st_object +_1st_object_length
+               && g_xposition_chaeacter +character_length >g_xposition_1st_object
+               &&
+               g_yposition_chaeacter+ character_length > g_yposition_1st_object
+                )
+                {
+                  _1st_object_speed=0
+                gameover();
+                    
+                
+                }
+                if(g_yposition_chaeacter < g_yposition_2nd_object+_2nd_object_length
+            && g_xposition_chaeacter < g_xposition_2nd_object +_2nd_object_length
+          && g_xposition_chaeacter +character_length >g_xposition_2nd_object
+                 &&
+               g_yposition_chaeacter+ character_length >g_yposition_2nd_object
+                )
+                {
+                  _2nd_object_speed=0
+                    
+                gameover();
+                     
+                }
+         if(g_yposition_chaeacter < g_yposition_3rd_object+_3rd_object_length
+            && g_xposition_chaeacter < g_xposition_3rd_object +_3rd_object_length
+                 &&   g_xposition_chaeacter +character_length >g_xposition_3rd_object
+              &&
+               g_yposition_chaeacter+ character_length >g_yposition_3rd_object
+               
+                )
+                {
+                  _3rd_object_speed=0
+                    gameover();
+                 
+                }
+            
+            
+            
+            
+        }
+       function button(){
+           ctx.fillStyle="aquamarine"
+            ctx.fillRect(button_x_position,button_y_position,button_width, button_height)
+        } 
+        
+        
+        
+        
+        function return_element(){
+            
+             g_yposition_1st_object +=_1st_object_speed;
+           if( g_yposition_1st_object >canvas.height && sec %2== 0)
+               {
+                   g_yposition_1st_object=0;
+                   _1st_object_speed =_1st_object_speed+1;
+                   count=count+1;
+               }
+            g_yposition_2nd_object +=_2nd_object_speed;
+           if( g_yposition_2nd_object >canvas.height   && sec %9== 0)
+               {
+                   g_yposition_2nd_object=0;
+                   _2nd_object_speed=_2nd_object_speed+1;
+                   count=count+1;
+               }
+              g_yposition_3rd_object +=_3rd_object_speed;
+           if( g_yposition_3rd_object >canvas.height  && sec %4== 0)
+               {
+                   g_yposition_3rd_object=0;
+                   _3rd_object_speed=_3rd_object_speed+1;
+                   count=count+1;
+               }
+            
+            
+        }
+function gameover(){
+            
+            
+       _1st_object_speed=0;
+            _2nd_object_speed =0;
+            _3rd_object_speed =0;
+     timeintervalid=null;
+gameoverr=true;
+        }
+        
+        gameoverr=false;
+        if(gameoverr==true){
+             function drawgameover(){
+             ctx.font="50px georgia";
+            ctx.fillStyle="aqua";
+            ctx.fillText("Game over ",80,300)
+        }
+        
+            drawgameover();
+        }
+        
+        
+ /*                   
+    if(      
+       _1st_object_speed==0 &&
+            _2nd_object_speed ==0&&
+            _3rd_object_speed ==0){
+    var canva=document.getElementById('game over');
+    var game=canva.getContext('2d');}*/
+         
+        
+/*        var timeintervalid=setInterval(gameloop,timeinterval);*/
+        
+        var flag_leftmove=0;
+        
+        var flag_rightmove=0;
+        
+        
+        function keydown(l_key){
+            
+         if(l_key.keyCode ==37)
+         {
+           flag_leftmove=1;  
+        }
+               
+         if(l_key.keyCode ==39)
+         {
+           flag_rightmove=1;  
+            
+         } 
+            charactermove();
+            
+        }
+        
+        function keyup(l_key)
+        {
+            if(l_key.keyCode ==37)
+         {
+           flag_leftmove=0;  
+         }
+               
+         if(l_key.keyCode ==39)
+         {
+           flag_rightmove=0;  
+         } 
+            
+            
+        }
+          function mouseclick(l_click){
+        console.log(l_click.clientX)
+               console.log(l_click.clientY)
+        
+            
+            
+      if(l_click.clientX>button_x_position &&
+              l_click.clientX<button_x_position+button_width &&
+              l_click.clientY >button_y_position &&
+              l_click.clientY <button_y_position+button_height){
+                 console.log("hii");
+            
+                   function gameloop(){
+            
+            flamerate++;
+            if(flamerate%g_flamerate ==0)
+            {
+                sec++;
+            }
+            
+            //console.log(sec);
+     
+               
+          collision(); 
+         return_element();
+        
+             clearcanvas();
+           _1st_object();
+            _2nd_object();
+            _3rd_object();
+            
+            lines();
+            chaeacter();
+             scorce();
+       
+            
+        }
+                        var timeintervalid=setInterval(gameloop,timeinterval);
+            }
+            
+        }
+        
+
+        window.addEventListener('keydown',keydown)
+    
+      window.addEventListener('keyup',keyup)
+       window.addEventListener("mousedown",mouseclick)
+                    
+drawtext();
+    </script>
+
+
+
+
+
+
+</html>
